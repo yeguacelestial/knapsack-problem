@@ -7,8 +7,7 @@
 
 # Output -> * | 'i' Column | 'Vi' Column | 'Wi Column'
 
-from tabulate import tabulate
-import random
+from random import randint
 import sys
 from sys import argv
 
@@ -23,9 +22,12 @@ def main():
 
     except ValueError:
         print("[-] Error: values must be integers.")
+    
+    except IndexError:
+        print("[-] Error: One or more arguments are missing!")
 
-    except:
-        print("[*] Usage: instance_generator.py <instance-size> <min-value> <max-value> <min-weight> <max-weight>")
+    except Exception as e:
+        print(f"[*] Usage: instance_generator.py <instance-size> <min-value> <max-value> <min-weight> <max-weight>")
 
 # Instance generator function
 def instance(n=0, min_v=0, max_v=0, min_w=0, max_w=0):
@@ -41,9 +43,26 @@ def instance(n=0, min_v=0, max_v=0, min_w=0, max_w=0):
         print("[-] Values can't be string type.")
     
     else:
-        print(f'[*] Values\nn={n}\nmin_v={min_v}\nmax_v={max_v}\nmin_w={min_w}\nmax_w={max_w}')
+        #print(f'[+] Values\nn={n}\nmin_v={min_v}\nmax_v={max_v}\nmin_w={min_w}\nmax_w={max_w}')
+        index_list = []
+        w_list = []
+        v_list = []
+        [w_list.append(randint(min_w, max_w)) for i in range(0, n)]
+        [v_list.append(randint(min_v, max_v)) for i in range(0, n)]
+        [index_list.append(i) for i in range(1, n+1)]
+        
+        #print(f'[+] Generated lists:\ni: {index_list}\nW: {w_list}\nV: {v_list}')
+        #print (tabulate([["value1", "value2", "value3"], ["value3", "value4", "value3"]], ["i", "W", "V"], tablefmt="grid"))
+        
+        # Pretty table
+        titles = ['i', 'Wi', 'Vi']
+        data = [titles] + list(zip(index_list, w_list, v_list))
 
-# print (tabulate([["value1", "value2"], ["value3", "value4"]], ["column1", "column2"], tablefmt="grid"))
+        for i, d in enumerate(data):
+            line = '|'.join(str(x).ljust(10) for x in d)
+            print(line)
+            if i == 0:
+                print('-' * len(line))
 
 if __name__ == '__main__':
     main()
