@@ -1,0 +1,13 @@
+i         |Wi        |Vi        
+--------------------------------
+1         |10        |337       
+2         |10        |24        
+3         |10        |1629      
+4         |10        |795       
+5         |10        |348       
+6         |10        |69        
+7         |10        |1382      
+8         |10        |489       
+9         |10        |1526      
+10        |10        |815       
+[*] Usage: instance_generator.py <instance-size> <min-value> <max-value> <min-weight> <max-weight>

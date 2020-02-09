@@ -55,6 +55,9 @@ def instance(n=0, min_v=0, max_v=0, min_w=0, max_w=0):
         #print (tabulate([["value1", "value2", "value3"], ["value3", "value4", "value3"]], ["i", "W", "V"], tablefmt="grid"))
         
         # Pretty table
+        f = open('pelos.dat', 'w+')
+        sys.stdout = f
+
         titles = ['i', 'Wi', 'Vi']
         data = [titles] + list(zip(index_list, w_list, v_list))
 
@@ -62,7 +65,14 @@ def instance(n=0, min_v=0, max_v=0, min_w=0, max_w=0):
             line = '|'.join(str(x).ljust(10) for x in d)
             print(line)
             if i == 0:
-                print('-' * len(line))
+                dash = '-' * len(line)
+                print(dash)
+        
+        sys.stdout = orig_stdout
+        f.close()
+
+        f = open('pelos.dat', 'r')
+        print(f.read())
 
 if __name__ == '__main__':
     main()
