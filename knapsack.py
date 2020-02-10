@@ -23,4 +23,4 @@ def knapsack(ksw, wi, vi, n):
             else:
                 K[i][w] = K[i-1][w]
             
-    return K[n][ksw]
+    return print(f'[+] Number of items: {n}\n[+] Objective function: {K[n][ksw]}')
