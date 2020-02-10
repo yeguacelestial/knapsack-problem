@@ -13,21 +13,24 @@ from sys import argv
 
 def main():
     try:
-        n = int(sys.argv[1])
-        min_v = int(sys.argv[2])
-        max_v = int(sys.argv[3])
-        min_w = int(sys.argv [4])
-        max_w = int(sys.argv[5])
-        instance(n, min_v, max_v, min_w, max_w)
+        if len(sys.argv) > 1:
+            n = int(sys.argv[1])
+            min_v = int(sys.argv[2])
+            max_v = int(sys.argv[3])
+            min_w = int(sys.argv [4])
+            max_w = int(sys.argv[5])
+            instance(n, min_v, max_v, min_w, max_w)
+        else:
+            print(f"[*] Usage: instance_generator.py <instance-size> <min-value> <max-value> <min-weight> <max-weight>")
 
     except ValueError:
-        print("[-] Error: values must be integers.")
+        print("[-] Error: Values are not correct. Please, follow the correct syntax.")
     
     except IndexError:
         print("[-] Error: One or more arguments are missing!")
 
     except Exception as e:
-        print(f"[*] Usage: instance_generator.py <instance-size> <min-value> <max-value> <min-weight> <max-weight>")
+        pass
 
 # Instance generator function
 def instance(n=0, min_v=0, max_v=0, min_w=0, max_w=0):
