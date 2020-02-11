@@ -24,7 +24,8 @@ def main():
             print(f"[*] Usage: instance_generator.py <instance-size> <min-value> <max-value> <min-weight> <max-weight>")
 
     except ValueError:
-        print("[-] Error: Values are not correct. Please, follow the correct syntax.")
+        print("[-] Error: Invalid arguments. Please, follow the correct syntax.")
+        print("[*] REMINDER: All values must be integer type.")
     
     except IndexError:
         print("[-] Error: One or more arguments are missing!")

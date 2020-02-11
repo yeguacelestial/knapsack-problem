@@ -6,11 +6,44 @@
 # Output -> Objective function (objF)
 #        -> Number of items (nItems)
 
-# Read file
+from sys import argv
+
+# Global variables
 wi = []
 vi = []
 
-def read_file(file):
+def main():
+    try:
+        if len(argv) > 1 and len(argv) < 4:
+            file_name = argv[1]
+            ks_weight = int(argv[2])
+
+            if ks_weight == 0 or ks_weight < 0:
+                print("[-] Error: Knapsack weight is not valid. Send a correct value.")
+                exit
+
+            read_data(file_name)
+            knapsack(ks_weight, wi, vi)
+        
+        else:
+            print("[+] Usage: knapsack.py <instance-file> <knapsack-weight>")
+            pass
+    
+    except IndexError as e:
+        print("[-] Error: Invalid arguments.")
+    
+    except FileNotFoundError as e:
+        print("[-] Error: The file was not found.")
+
+    except ValueError as e:
+        print("[-] Error: Values must be int type.")
+
+    except Exception as e:
+        print(type(e))
+        
+
+# Read file
+def read_data(file):
     global wi
     global vi
 
@@ -40,14 +73,14 @@ def read_file(file):
     # 'Vi' list
     vi = columns(vi, 2)
 
-    print(f"wi = {wi}\nvi = {vi}")
+    #print(f"wi = {wi}\nvi = {vi}")
 
 
-def knapsack(ksw, wi, vi, n):
-    K = [[0 for x in range(ksw+1)] for x in range(n+1)]
+def knapsack(ksw, wi, vi):
+    K = [[0 for x in range(ksw+1)] for x in range(len(vi)+1)]
 
     # Build table K[][] in bottom-up manner
-    for i in range(n+1):
+    for i in range(len(vi)+1):
         for w in range(ksw+1):
 
             # Base case
@@ -60,4 +93,7 @@ def knapsack(ksw, wi, vi, n):
             else:
                 K[i][w] = K[i-1][w]
             
-    return print(f'[+] Number of items: {n}\n[+] Objective function: {K[n][ksw]}')
+    return print(f'[+] Number of items: {len(vi)}\n[+] Objective function: {K[len(vi)][ksw]}')
+
+if __name__ == '__main__':
+    main()
