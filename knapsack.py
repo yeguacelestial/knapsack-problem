@@ -6,6 +6,43 @@
 # Output -> Objective function (objF)
 #        -> Number of items (nItems)
 
+# Read file
+wi = []
+vi = []
+
+def read_file(file):
+    global wi
+    global vi
+
+    def columns(list_name, index):
+        with open(f'{file}') as f:
+            for line in f:
+                parts = line.split()
+                if len(parts) > 1:
+                    list_name.append(parts[index])
+            list_name.pop(0)
+
+        list_name_copy = []
+
+        for element in list_name:
+            element = list(element)
+            element.pop(0)
+            element = int("".join(element))
+            list_name_copy.append(element)
+
+        list_name = list_name_copy
+
+        return list_name
+        
+    # 'Wi' list
+    wi = columns(wi, 1)
+    
+    # 'Vi' list
+    vi = columns(vi, 2)
+
+    print(f"wi = {wi}\nvi = {vi}")
+
+
 def knapsack(ksw, wi, vi, n):
     K = [[0 for x in range(ksw+1)] for x in range(n+1)]
 
