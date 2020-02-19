@@ -19,9 +19,10 @@ def main():
             max_v = int(sys.argv[3])
             min_w = int(sys.argv [4])
             max_w = int(sys.argv[5])
-            instance(n, min_v, max_v, min_w, max_w)
+            filename = str(sys.argv[6])
+            instance(n, min_v, max_v, min_w, max_w, filename)
         else:
-            print(f"[*] Usage: instance_generator.py <instance-size> <min-value> <max-value> <min-weight> <max-weight>")
+            print(f"[*] Usage: instance_generator.py <instance-size> <min-value> <max-value> <min-weight> <max-weight> <filename>")
 
     except ValueError:
         print("[-] Error: Invalid arguments. Please, follow the correct syntax.")
@@ -34,7 +35,7 @@ def main():
         pass
 
 # Instance generator function
-def instance(n=0, min_v=0, max_v=0, min_w=0, max_w=0):
+def instance(n=0, min_v=0, max_v=0, min_w=0, max_w=0, filename="default"):
     if n == 0 or max_v == 0 or max_w == 0:
         print("[-] Instance won't be generated with 0 on KS Size or maximum values.")
         exit
@@ -59,12 +60,15 @@ def instance(n=0, min_v=0, max_v=0, min_w=0, max_w=0):
         #print (tabulate([["value1", "value2", "value3"], ["value3", "value4", "value3"]], ["i", "W", "V"], tablefmt="grid"))
         
         # Pretty table
-        f = open('pelos.dat', 'w+')
+        f = open(f'{filename}.dat', 'w+')
         sys.stdout = f
 
         titles = ['i', 'Wi', 'Vi']
         data = [titles] + list(zip(index_list, w_list, v_list))
 
+        kW = int(n * ((min_w + max_w)/2) * 0.3)
+        print(f'W = {kW}')
+        
         for i, d in enumerate(data):
             line = '|'.join(str(x).ljust(10) for x in d)
             print(line)

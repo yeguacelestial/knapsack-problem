@@ -11,22 +11,23 @@ from sys import argv
 # Global variables
 wi = []
 vi = []
+ksW = 0
 
 def main():
     try:
         if len(argv) > 1 and len(argv) < 4:
             file_name = argv[1]
-            ks_weight = int(argv[2])
+            #ks_weight = int(argv[2])
 
-            if ks_weight == 0 or ks_weight < 0:
-                print("[-] Error: Knapsack weight is not valid. Send a correct value.")
-                exit
+            # if ks_weight == 0 or ks_weight < 0:
+            #     print("[-] Error: Knapsack weight is not valid. Send a correct value.")
+            #     exit
 
             read_data(file_name)
-            knapsack(ks_weight, wi, vi)
+            knapsack(ksW, wi, vi)
         
         else:
-            print("[+] Usage: knapsack.py <instance-file> <knapsack-weight>")
+            print("[+] Usage: knapsack.py <instance-file>")
             pass
     
     except IndexError as e:
@@ -46,7 +47,15 @@ def main():
 def read_data(file):
     global wi
     global vi
+    global ksW
 
+    # Read Knapsack's Weight
+    with open(f'{file}') as f:
+        first_line = f.readline()
+        first_line = list(first_line)
+        ksW = int("".join(first_line[4:-1]))
+
+    # Read columns
     def columns(list_name, index):
         with open(f'{file}') as f:
             for line in f:
@@ -57,7 +66,7 @@ def read_data(file):
 
         list_name_copy = []
 
-        for element in list_name:
+        for element in list_name[1:]:
             element = list(element)
             element.pop(0)
             element = int("".join(element))
